@@ -1,22 +1,20 @@
 import allure
-from config import BASE_URL, YANDEX_URL
 from pages.main_page import MainPage
+from config import Config
 
 @allure.feature("Навигация")
 class TestNavigation:
-
-    @allure.title("Переход на главную по клику на логотип 'Самокат'")
-    def test_scooter_logo_redirect(self, browser):
-        browser.get(BASE_URL)
-        main_page = MainPage(browser)
+    @allure.title("Возврат на главную по логотипу 'Самокат'")
+    def test_scooter_logo(self, driver):
+        main_page = MainPage(driver)
+        main_page.click_order_button_top()
         main_page.click_scooter_logo()
-        assert browser.current_url == BASE_URL
+        assert driver.current_url == Config.BASE_URL
 
-    @allure.title("Переход на Яндекс.Дзен по клику на логотип 'Яндекс'")
-    def test_yandex_logo_redirect(self, browser):
-        browser.get(BASE_URL)
-        main_page = MainPage(browser)
+    @allure.title("Переход на Дзен по логотипу 'Яндекс'")
+    def test_yandex_logo(self, driver):
+        main_page = MainPage(driver)
         main_page.click_yandex_logo()
-        browser.switch_to.window(browser.window_handles[-1])
-        assert YANDEX_URL in browser.current_url
+        main_page.switch_to_new_window()
+        assert Config.DZEN_PAGE_URL in driver.current_url
         
