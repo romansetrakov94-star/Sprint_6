@@ -19,5 +19,5 @@ class TestFAQ:
         main_page = MainPage(driver)
         main_page.click_question(index)
         answer_text = main_page.get_answer_text(index)
-        assert expected.lower() in answer_text.lower(), f"Ожидалось: {expected}, получено: {answer_text}"
+        assert answer_text == expected, f"Ожидалось: {expected}, получено: {answer_text}"
         

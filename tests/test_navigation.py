@@ -9,12 +9,12 @@ class TestNavigation:
         main_page = MainPage(driver)
         main_page.click_order_button_top()
         main_page.click_scooter_logo()
-        assert driver.current_url == Config.BASE_URL
+        assert main_page.get_current_url() == Config.BASE_URL
 
     @allure.title("Переход на Дзен по логотипу 'Яндекс'")
     def test_yandex_logo(self, driver):
         main_page = MainPage(driver)
         main_page.click_yandex_logo()
         main_page.switch_to_new_window()
-        assert Config.DZEN_PAGE_URL in driver.current_url
+        assert Config.DZEN_PAGE_URL in main_page.get_current_url()
         
