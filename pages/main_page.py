@@ -1,28 +1,29 @@
-from .base_page import BasePage
-from locators.main_page_locators import MainPageLocators
 import allure
+from locators.main_page_locators import MainPageLocators
+from pages.base_page import BasePage
 
 class MainPage(BasePage):
-    def click_on_accordion_question(self, index):
-        with allure.step(f"Клик по вопросу {index + 1} в разделе 'Вопросы о важном'"):
-            self.click_element(MainPageLocators.ACCORDION_QUESTIONS[index])
+    @allure.step("Клик по вопросу")
+    def click_question(self, index: int):
+        self.click(MainPageLocators.get_question_locator(index))
 
-    def get_accordion_answer_text(self, index):
-        with allure.step(f"Получение текста ответа на вопрос {index + 1}"):
-            return self.get_text(MainPageLocators.ACCORDION_ANSWERS[index])
+    @allure.step("Получение текста ответа")
+    def get_answer_text(self, index: int) -> str:
+        return self.get_text(MainPageLocators.get_answer_locator(index))
 
+    @allure.step("Клик по кнопке 'Заказать' в хедере")
     def click_order_button_top(self):
-        with allure.step("Клик по кнопке 'Заказать' в хедере"):
-            self.click_element(MainPageLocators.ORDER_BUTTON_TOP)
+        self.click(MainPageLocators.ORDER_BTN_HEADER)
 
+    @allure.step("Клик по кнопке 'Заказать' в футере")
     def click_order_button_bottom(self):
-        with allure.step("Клик по кнопке 'Заказать' в футере"):
-            self.click_element(MainPageLocators.ORDER_BUTTON_BOTTOM)
+        self.click(MainPageLocators.ORDER_BTN_FOOTER)
 
+    @allure.step("Клик по логотипу Самоката")
     def click_scooter_logo(self):
-        with allure.step("Клик по логотипу 'Самокат'"):
-            self.click_element(MainPageLocators.SCOOTER_LOGO)
+        self.click(MainPageLocators.SCOOTER_LOGO)
 
+    @allure.step("Клик по логотипу Яндекса")
     def click_yandex_logo(self):
-        with allure.step("Клик по логотипу 'Яндекс'"):
-            self.click_element(MainPageLocators.YANDEX_LOGO)
+        self.click(MainPageLocators.YANDEX_LOGO)
+        
